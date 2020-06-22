@@ -1,0 +1,21 @@
+trigger TriggerUpdateContactFromUser on User (after update) {
+        //*used after update since it would be for the scenario of someone editing their info as a user
+    
+    //things missing: Logic check to not update if names aren't changed, check for null values, limit on what profiles are affected
+    
+    Contact con = new Contact();
+    List<Contact> Conta = new List<Contact>();
+
+       for (User newUser : Trigger.new){
+               con.ID = newUser.contactID;
+               con.FirstName = newUser.firstName;
+               con.LastName = newUser.lastName;
+
+               Conta.add(con);
+           /*It might be possible to add directly, but this seems easier to read and edit */
+       }        
+       
+    	UserTriggerHandler.ContactUpdateName(Conta); //Call function to do updates
+   
+
+}
