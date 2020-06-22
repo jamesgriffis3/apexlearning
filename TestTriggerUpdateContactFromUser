@@ -1,0 +1,29 @@
+@isTest
+public class TestTriggerUpdateContactFromUser {
+    static testmethod void test1(){
+
+        Id ComProfile = [SELECT Id FROM Profile WHERE Name='Partner Community User' LIMIT 1].Id;
+        User us = [SELECT Id,FirstName,LastName,ContactId FROM User WHERE ProfileId=:ComProfile LIMIT 1];
+        System.debug('User ID:'+us.Id+' ContactId:'+us.ContactId);
+        Id ContId = us.ContactId;
+        
+        
+        us.FirstName = 'Testing1234';
+        us.LastName = 'Testing4321';
+        
+        Update Us;
+        
+        //Finds related Contact to see if the values updated
+        Contact con = [SELECT Id,FirstName,LastName FROM Contact WHERE Id=:ContId LIMIT 1];
+        
+        //checks to see if the values match between Contact and User
+        System.assertEquals(con.FirstName,'Testing1234');
+        System.assertEquals(con.LastName,'Testing4321');
+        
+        
+        //TestDataCreation.CreateContacts(2);
+        
+    
+    }
+    
+}
