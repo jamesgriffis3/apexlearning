@@ -1,8 +1,23 @@
+//Created by James Griffis
+
+
 public class UserTriggerHandler {
-    public static void ContactUpdateName(Contact[] Contactlist){
+    public static void ContactUpdateName(User[] Userlist){  //updates Contact name based on User changes
         
+		List<Contact> ContactsToInsert = new List<Contact>();
+		Contact ConToAdd = new Contact();
+        
+        for (User U:UserList){
+            ConToAdd.ID = U.contactID;
+            ConToAdd.FirstName = U.firstName;
+            ConToAdd.LastName = U.lastName;
+			
+            ContactsToInsert.add(conToAdd);
+        }
+        
+        //updates the record
         try{   
-        update ContactList;
+        update ContactsToInsert;
         } catch(DmlException e) {
             System.debug('Something is not working. Sorry about that. Here is the error: ' + e.getMessage());
         }
