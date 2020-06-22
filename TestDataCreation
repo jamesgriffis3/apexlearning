@@ -1,0 +1,22 @@
+@isTest
+public class TestDataCreation {
+    public static void UsersWithContacts(Integer numUsers){
+        List<User> TestUsers = new List<User>();
+        List<Contact> TestContacts = new List<Contact>();
+        Integer numContacts = numUsers;
+    
+    for(Integer i=0;i<numContacts;i++) {
+
+            Contact con = new Contact(LastName='TestContact' + i, FirstName='John' + i);
+            TestContacts.add(con);
+        }
+    insert TestContacts;
+
+    for(Integer i=0;i<numUsers;i++) {
+    		User use = new User(profile=[SELECT Id FROM Profile Where name='Partner Community User'],FirstName='FirstName'+i,LastName='LastName'+i,email='exampleemail'+i+'@example.com.invalid',ContactID=TestContacts[i].Id);
+        	TestUsers.add(use);
+    }
+    insert TestUsers;
+    
+    }
+}
